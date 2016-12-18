@@ -42,8 +42,13 @@ ADDON_STATUS ADDON_Create(void* hdl, void* props)
   return ADDON_STATUS_NEED_SETTINGS;
 }
 
-extern "C" void Stop() 
+////////////////////////////////////////////////////////////////////////////
+// XBMC tells us to stop the screensaver we should free any memory and release
+// any resources we have created.
+//
+extern "C" void Stop()
 {
+  gSheep.Shutdown();
 }
 
 extern "C" void Start()
@@ -60,15 +65,6 @@ extern "C" void Start()
 extern "C" void Render()
 {
   gSheep.Update();
-}
-
-////////////////////////////////////////////////////////////////////////////
-// XBMC tells us to stop the screensaver we should free any memory and release
-// any resources we have created.
-//
-extern "C" void ADDON_Stop()
-{
-  gSheep.Shutdown();
 }
 
 void ADDON_Destroy()
